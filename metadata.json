@@ -1,0 +1,6 @@
+{
+  "name": "Lumora AI",
+  "description": "An AI-powered application that predicts deadlines, manages smart habits, and builds future schedules autonomously with an integrated interactive planner.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

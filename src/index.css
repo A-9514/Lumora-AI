@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&family=VT323&display=swap');
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-retro: "VT323", monospace;
+  --font-serif: "Playfair Display", Georgia, serif;
+  
+  --color-crt-purple: #f3e8ff;
+  --color-crt-glow: #a855f7;
+  --color-crt-dark: #3b0764;
+}
+
+/* -------------------------------------------------------------
+   ARTISTIC FLAIR & CRT MONITORS STYLES
+   ------------------------------------------------------------- */
+
+/* Aesthetic layers requested by the design */
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.03) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.01));
+  background-size: 100% 3px, 3px 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.vignette {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 65%, rgba(59, 7, 100, 0.08) 100%);
+  pointer-events: none;
+  z-index: 101;
+}
+
+.stylish-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  backdrop-filter: blur(8px);
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.panic-glow {
+  box-shadow: 0 0 15px rgba(217, 70, 239, 0.35);
+  border-left: 8px solid #d946ef !important;
+}
+
+.grid-line {
+  border-bottom: 1px solid rgba(59, 7, 100, 0.08);
+}
+
+/* Outer bezel simulating retro plastic terminal */
+.crt-bezel {
+  position: relative;
+  background: #fdfaff;
+  border: 12px solid #e7e2f5;
+  border-radius: 24px;
+  box-shadow: 
+    inset 0 4px 6px rgba(255,255,255,0.9),
+    inset 0 -4px 6px rgba(0,0,0,0.06),
+    0 20px 40px rgba(59, 7, 100, 0.1),
+    0 1px 3px rgba(0,0,0,0.03);
+}
+
+/* High-tech glowing status LEDs */
+.led-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.led-purple-active {
+  background-color: #c084fc;
+  box-shadow: 0 0 8px #c084fc, 0 0 15px #a855f7;
+}
+
+.led-red-alert {
+  background-color: #f43f5e;
+  box-shadow: 0 0 10px #f43f5e, 0 0 20px #e11d48;
+  animation: pulse-red 1s infinite alternate;
+}
+
+@keyframes pulse-red {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+/* Curved CRT screen overlay */
+.crt-screen {
+  position: relative;
+  overflow: hidden;
+  background-color: #faf8ff;
+  border: 8px solid #3b0764;
+  border-radius: 12px;
+  box-shadow: 
+    inset 0 0 60px rgba(168, 85, 247, 0.15),
+    0 0 20px rgba(168, 85, 247, 0.05);
+}
+
+/* Horizontal scanline overlays */
+.crt-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  background: linear-gradient(
+    rgba(168, 85, 247, 0.04) 50%, 
+    rgba(59, 7, 100, 0.02) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.02),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.02)
+  );
+  background-size: 100% 4px, 6px 100%;
+}
+
+/* Dynamic light flicker effect */
+.crt-flicker {
+  animation: crt-brightness 0.15s infinite;
+}
+
+@keyframes crt-brightness {
+  0% { opacity: 0.995; }
+  50% { opacity: 1; }
+  100% { opacity: 0.992; }
+}
+
+/* Horizontal scrolling rolling trigger bar (the CRT vertical hold bar) */
+.crt-bar {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    rgba(168, 85, 247, 0) 0%,
+    rgba(168, 85, 247, 0.06) 10%,
+    rgba(168, 85, 247, 0.09) 50%,
+    rgba(168, 85, 247, 0.06) 90%,
+    rgba(168, 85, 247, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 11;
+  animation: crt-bar-scan 8s linear infinite;
+}
+
+@keyframes crt-bar-scan {
+  0% { top: -100px; }
+  100% { top: 100%; }
+}
+
+/* Vintage light-purple phosphor text glow */
+.crt-text-glow {
+  text-shadow: 0 0 2px rgba(168, 85, 247, 0.4);
+}
+
+.crt-text-glow-strong {
+  text-shadow: 0 0 4px rgba(168, 85, 247, 0.6), 0 0 10px rgba(168, 85, 247, 0.2);
+}
+
+/* Alert state sirens */
+.alert-pulse-purple {
+  animation: alert-flash 1.2s infinite alternate;
+}
+
+@keyframes alert-flash {
+  0% {
+    background-color: rgba(243, 232, 255, 0.8);
+    border-color: rgba(168, 85, 247, 0.4);
+  }
+  100% {
+    background-color: rgba(216, 180, 254, 0.9);
+    border-color: rgba(147, 51, 234, 0.8);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+  }
+}
+
+/* Retro LCD panel or sub-displays */
+.lcd-subpanel {
+  background: #fdfcff;
+  border: 2px solid #e9d5ff;
+  box-shadow: inset 0 2px 4px rgba(147, 51, 234, 0.05);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f3e8ff;
+}
+::-webkit-scrollbar-thumb {
+  background: #c084fc;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a855f7;
+}
+
+/* Matrix static animation */
+.noise-bg {
+  background-image: radial-gradient(rgba(147, 51, 234, 0.15) 1px, transparent 0);
+  background-size: 16px 16px;
+}
+
+/* Custom ambient background and micro-animations */
+@keyframes shift-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.bg-gradient-animate {
+  background-size: 200% 200%;
+  animation: shift-gradient 25s ease infinite;
+}
+
+@keyframes float-anim {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes float-anim-slower {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(-1deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.float-slow {
+  animation: float-anim 7s ease-in-out infinite;
+}
+
+.float-slower {
+  animation: float-anim-slower 10s ease-in-out infinite;
+}
+
+@keyframes drift-particle {
+  0% { transform: translate(0, 0); opacity: 0.15; }
+  50% { transform: translate(30px, -40px); opacity: 0.45; }
+  100% { transform: translate(0, 0); opacity: 0.15; }
+}
+
+.particle-slow-1 {
+  animation: drift-particle 15s ease-in-out infinite;
+}
+.particle-slow-2 {
+  animation: drift-particle 22s ease-in-out infinite 3s;
+}
+.particle-slow-3 {
+  animation: drift-particle 28s ease-in-out infinite 6s;
+}
+
+.glass-reflection {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-reflection::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  pointer-events: none;
+}
+
+.glass-reflection:hover::after {
+  animation: reflect-shimmer 1.2s ease-in-out;
+}
+
+@keyframes reflect-shimmer {
+  0% { left: -150%; }
+  100% { left: 150%; }
+}
+
